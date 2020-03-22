@@ -1,0 +1,71 @@
+#---------------------------------------------------#
+## 配置文件需要放置在 $HOME/.config/clash/config.yml
+##
+## 对于 macOS 用户，如果你不知道如何操作，请将一下命令复制到 终端 （包括最后的 . 符号）并执行：
+## mkdir -p $HOME/.config/clash/ && cd $HOME/.config/clash/ && sudo curl -o ./config.yml https://raw.githubusercontent.com/Hackl0us/SS-Rule-Snippet/master/LAZY_RULES/clash.yml -k -s && sudo chmod 775 ./config.yml && open .
+## 在 Finder 弹出窗口中，打开并编辑 config.yml 即可。
+#---------------------------------------------------#
+
+# HTTP 代理端口
+port: 8080
+
+# SOCKS5 代理端口
+socks-port: 1080
+
+# Linux 和 macOS 的 redir 代理端口 (如需使用此功能，请取消注释)
+# redir-port: 7892
+
+# 允许局域网的连接（可用来共享代理）
+allow-lan: false
+
+# 规则模式：Rule（规则） / Global（全局代理）/ Direct（全局直连）
+mode: Rule
+
+# 设置日志输出级别 (默认级别：info，级别越高日志输出量越大，越倾向于调试)
+# 四个级别：info / warning / error / debug
+# log-level: info
+log-level: warning
+
+# clash 的 RESTful API
+external-controller: 127.0.0.1:9090
+
+Proxy:
+
+# shadowsocks
+# 所支持的加密方式与 go-shadowsocks2 保持一致
+# 支持加密方式： AEAD_AES_128_GCM AEAD_AES_192_GCM AEAD_AES_256_GCM AEAD_CHACHA20_POLY1305 AES-128-CTR AES-192-CTR AES-256-CTR AES-128-CFB AES-192-CFB AES-256-CFB CHACHA20-IETF XCHACHA20
+# clash 额外支持 chacha20 rc4-md5 xchacha20-ietf-poly1305 加密方式
+# - { name: "ss1", type: ss, server: server, port: 443, cipher: AEAD_CHACHA20_POLY1305, password: "password" }
+# - { name: "ss2", type: ss, server: server, port: 443, cipher: AEAD_CHACHA20_POLY1305, password: "password", obfs: tls, obfs-host: bing.com }
+
+# vmess
+# 支持加密方式：auto / aes-128-gcm / chacha20-poly1305 / none
+# - { name: "vmess1", type: vmess, server: server, port: 443, uuid: uuid, alterId: 32, cipher: auto }
+# - { name: "vmess2", type: vmess, server: server, port: 443, uuid: uuid, alterId: 32, cipher: auto, tls: true }
+- { name: "Japan_Tokyo", type: vmess, server: www.example.com, port: 443, uuid: XXXXXXXX-D87B-405A-9B1C-XXXXXXXXXXXX, alterId: 16, cipher: auto, network: ws, ws-path: /XXXX/, ws-headers: { Host: www.example.com }, tls: true}
+- { name: "USA_Oregon", type: vmess, server: www.example.com, port: 443, uuid: XXXXXXXX-3DDA-4E57-8517-XXXXXXXXXXXX, alterId: 16, cipher: auto, network: ws, ws-path: /XXXX/, ws-headers: { Host: www.example.com }, tls: true}
+- { name: "Korea_Seoul", type: vmess, server: www.example.com, port: 443, uuid: XXXXXXXX-2FB1-11E9-9F81-XXXXXXXXXXXX, alterId: 16, cipher: auto, network: ws, ws-path: /XXXX/, ws-headers: { Host: www.example.com }, tls: true}
+
+
+# socks5
+# - { name: "socks", type: socks5, server: server, port: 443 }
+
+Proxy Group:
+# url-test 可以自动选择与指定 URL 测速后，延迟最短的服务器
+- { name: "Chat_Group", type: url-test, proxies: ["Japan_Tokyo", "USA_Oregon", "Korea_Seoul"], url: "http://www.gstatic.com/generate_204", interval: 300 }
+
+
+# fallback 可以尽量按照用户书写的服务器顺序，在确保服务器可用的情况下，自动选择服务器
+# - { name: "fallback-auto", type: fallback, proxies: ["ss1", "ss2", "vmess1"], url: "https://www.bing.com", interval: 300 }
+
+# select 用来允许用户手动选择 代理服务器 或 服务器组
+# 您也可以使用 RESTful API 去切换服务器，这种方式推荐在 GUI 中使用
+# - { name: "Proxy", type: select, proxies: ["ss1", "ss2", "vmess1", "auto"] }
+
+Rule:
+# LAN IP
+- IP-CIDR,10.0.0.0/8,DIRECT
+- IP-CIDR,127.0.0.0/8,DIRECT
+- IP-CIDR,172.16.0.0/12,DIRECT
+- IP-CIDR,192.168.0.0/16,DIRECT
+- IP-CIDR,224.0.0.0/24,DIRECT

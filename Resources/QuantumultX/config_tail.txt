@@ -1,0 +1,14 @@
+# Final
+final, direct
+
+[rewrite_local]
+^https?://.+.ninebot.cn/.+(Adv|version) url reject
+^https?://(.+)?.chelaile.net.cn/(.+)?(adpub|infoflow|content|app-relate) url reject
+
+[task_local]
+# Empty Now
+
+[mitm]
+;passphrase =
+;p12 = 
+;hostname = *.chelaile.net.cn, *.ninebot.cn

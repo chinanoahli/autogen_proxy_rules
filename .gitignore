@@ -1,0 +1,33 @@
+ClashX.yml
+Quantumult.conf
+QuantumultX.txt
+cn-aggregated.zone
+jp-aggregated.zone
+us-aggregated.zone
+kr-aggregated.zone
+getProxyConfig
+
+Resources/ClashX/*_temp.txt
+Resources/Quantumult/*_temp.txt
+Resources/QuantumultX/*_temp.txt
+
+# OSX.gitignore
+.DS_Store
+.AppleDouble
+.LSOverride
+*.icns
+._*
+
+# Icon must end with two \r
+Icon
+
+# Thumbnails
+._*
+
+# Vim.gitignore
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~

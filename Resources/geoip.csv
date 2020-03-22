@@ -1,0 +1,7 @@
+# group, type, basis, action, comment
+
+GEOIP, GEOIP, CN, DIRECT, CN
+GEOIP, GEOIP, JP, jp_proxy, JP
+GEOIP, GEOIP, US, us_proxy, US
+GEOIP, GEOIP, GB, us_proxy, GB
+GEOIP, GEOIP, KR, kr_proxy, KR
